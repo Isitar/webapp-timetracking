@@ -23,14 +23,15 @@
 
                 <ul class="columns is-multiline">
                     <li class="column is-one-third-desktop is-half-tablet" v-for="project in projects" :key="project.id">
-                        <ProjectCard :project="project" @workingOnChanged="reloadCurrentTimeTrackingEntry"/>
+                        <ProjectCard :project="project" @workingOnChanged="reloadCurrentTimeTrackingEntry" @projectChanged="reloadProjects"/>
                     </li>
                 </ul>
             </div>
 
             <ProjectCreateDialog @close="createProjectDialogOpen = false"
-                                 @save="reloadProjects"
-                                 :user-id="userId" :open="createProjectDialogOpen"/>
+                                 @save="e => {createProjectDialogOpen = false; this.reloadProjects()}"
+                                 :user-id="userId" :open="createProjectDialogOpen"
+            />
         </section>
         <section class="section" v-if="report">
             <div class="container">
@@ -72,7 +73,8 @@
                 .then(res => this.currentTimeTrackingEntry = res)
                 .catch(() => {
                     this.currentTimeTrackingEntry = null;
-                });
+                })
+                .then(this.reloadReport);
         }
 
         private reloadReport(): void {

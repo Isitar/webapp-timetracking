@@ -1,7 +1,7 @@
 <template>
     <div>
         <h2 class="title is-4">Report</h2>
-        <p>{{timeTrackingEntryReportVm.From}} - {{timeTrackingEntryReportVm.To}}</p>
+        <p>{{reportFrom}} - {{reportTo}}</p>
 
         <table class="table">
             <thead>
@@ -39,6 +39,14 @@
 
         private formatDuration(seconds: number): string {
             return formatDuration(seconds);
+        }
+
+        private get reportFrom(): string {
+            return new Date(this.timeTrackingEntryReportVm.from).toLocaleDateString()
+        }
+
+        private get reportTo(): string {
+            return new Date(this.timeTrackingEntryReportVm.to).toLocaleDateString()
         }
 
         private get overallTotalSeconds(): number {

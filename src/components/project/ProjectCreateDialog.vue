@@ -52,6 +52,7 @@
         private requestSave(): void {
             this.$projectService.createProject(this.userId, this.projectName)
                 .then(() => {
+                    this.projectName = '';
                     this.save(new Event('a'));
                 })
         }

@@ -7,4 +7,6 @@ export default interface IProjectService {
     projectsForUserAsync(userId: string): Promise<ProjectListVm>;
 
     createProject(userId: string, projectName: string): Promise<Result>
+
+    deleteProject(id: string): Promise<Result>
 }

@@ -29,4 +29,9 @@ export default class AxiosProjectService implements IProjectService {
             .then(res => Result.SuccessResult());
     }
 
+    deleteProject(id: string): Promise<Result> {
+        return Vue.$axios.delete(`/project/${id}`)
+            .then(res => Result.SuccessResult());
+    }
+
 }

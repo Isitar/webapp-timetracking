@@ -1,15 +1,18 @@
 <template>
-    <div class="card isitar-project-card is-block is-clickable" @click="startWorking">
-        <div class="card-image" v-if="project.hasImage && projectImage">
+    <div class="card isitar-project-card is-block is-clickable" @click.right.prevent="showDelete = !showDelete">
+        <div class="card-image" v-if="project.hasImage && projectImage" @click="startWorking">
             <figure class="image is-3by1">
                 <img :src="projectImage" alt="Project image">
             </figure>
         </div>
-        <header class="card-content">
+        <div class="card-content" @click="startWorking">
             <p class="title is-4 has-text-centered">
                 {{project.name}}
             </p>
-        </header>
+        </div>
+        <div class="card-footer" v-if="showDelete">
+            <button href="#" class="button card-footer-item is-danger" @click.prevent="deleteProject">Delete</button>
+        </div>
     </div>
 </template>
 
@@ -21,6 +24,7 @@
     export default class ProjectCard extends Vue {
 
         private projectImage: string | null = null;
+        private showDelete = false;
 
         @Prop({type: Object, required: true})
         public project!: ProjectSlim;
@@ -30,6 +34,14 @@
                 .then(res => {
                     this.workingOnChanged()
                 })
+        }
+
+        private deleteProject(): void {
+            this.$projectService.deleteProject(this.project.id)
+                .then(() => {
+                    this.projectChanged(new Event(''));
+                })
+
         }
 
         public mounted() {
@@ -42,6 +54,11 @@
         @Emit('workingOnChanged')
         public workingOnChanged(): void {
             return;
+        }
+
+        @Emit('projectChanged')
+        public projectChanged(event: Event): Event {
+            return event;
         }
     }
 </script>
