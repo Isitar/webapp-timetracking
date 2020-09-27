@@ -1,0 +1,16 @@
+@import "../frameworks/bulma";
+.fade-enter-active, .fade-leave-active {
+  transition: opacity .5s;
+}
+.fade-enter, .fade-leave-to  {
+  opacity: 0;
+}
+
+.slide-down-enter-active, .slide-down-leave-active {
+  transition: transform .5s ease-in-out, opacity .5s ease-in-out, margin-bottom .5s ease-in-out;
+}
+.slide-down-enter, .slide-down-leave-to  {
+  transform: translateY(-1 * $navbar-height);
+  opacity: 0;
+  margin-bottom: -1 * $navbar-height;
+}

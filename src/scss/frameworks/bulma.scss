@@ -1,0 +1,62 @@
+@import '../../../node_modules/bulma/sass/utilities/initial-variables';
+@import '../../../node_modules/bulma/sass/utilities/functions';
+
+$family-sans-serif: "Nunito", sans-serif;
+$primary: #2e7d32;
+$primary-light: #60ad5e;
+$primary-dark: #005005;
+
+
+$accent: #546e7a;
+$accent-light: #819ca9;
+$accent-dark: #29434e;
+$accent-invert: findColorInvert($accent);
+
+$primary: #5e5e5e;
+$primary-light: #8b8b8b;
+$primary-lighter: #bbbbbb;
+$primary-lightest: #dfdfdf;
+$primary-dark: #343434;
+
+$link: $accent-dark;
+$title-color: $accent;
+
+
+$orange: #f69e19;
+$brown: #D2691E;
+
+$custom-colors: ("accent": ($accent, $accent-invert, $accent-light, $accent-dark),
+        "yellow": ($yellow),
+        "orange": ($orange),
+        "green":($green),
+        "blue": ($blue),
+        "brown": ($brown),
+);
+
+$custom-shades: ("primary-lighter": ($primary-lighter), "primary-lightest": $primary-lightest);
+
+$radius-small: 0px;
+$radius: 0px;
+$radius-large: 0px;
+
+@import "../../../node_modules/bulma/bulma.sass";
+
+@each $name, $shade in $shades {
+  .has-text-#{$name} {
+    color: nth($shade, 1) !important
+  }
+  .has-background-#{$name} {
+    background-color: nth($shade, 1) !important
+  }
+}
+.has-background-white-yellow {
+  background: linear-gradient($yellow, $white);
+}
+.has-background-yellow-orange {
+  background: linear-gradient($orange, $yellow);
+}
+
+.is-clickable {
+  cursor: pointer;
+  pointer-events: all !important;
+}
