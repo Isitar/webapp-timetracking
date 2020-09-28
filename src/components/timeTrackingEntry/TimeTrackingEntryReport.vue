@@ -50,6 +50,9 @@
         }
 
         private get overallTotalSeconds(): number {
+            if (0 === this.timeTrackingEntryReportVm.timeTrackingEntryReports.length) {
+                return 0;
+            }
             return this.timeTrackingEntryReportVm.timeTrackingEntryReports.map(tter => tter.totalSeconds).reduce((carry, x) => carry + x);
         }
     }

@@ -36,6 +36,10 @@
         <section class="section" v-if="report">
             <div class="container">
                 <h2 class="title">Your day</h2>
+                <div class="has-text-centered">
+                    <button class="button is-accent" @click="reportPreviousDay">&lt;</button>
+                    <button class="button is-accent" @click="reportNextDay">&gt;</button>
+                </div>
                 <TimeTrackingEntryReport :time-tracking-entry-report-vm="report"/>
             </div>
         </section>
@@ -64,6 +68,9 @@
         private report: TimeTrackingEntryReportVm | null = null;
         private createProjectDialogOpen = false;
 
+        private reportFrom: Date | null = null;
+        private reportTo: Date | null = null;
+
         private get userId(): string {
             return this.$store.getters['user/userId'];
         }
@@ -77,12 +84,28 @@
                 .then(this.reloadReport);
         }
 
+        private reportNextDay(): void {
+            this.reportFrom?.setDate(this.reportFrom?.getDate() + 1)
+            this.reportTo?.setDate(this.reportTo?.getDate() + 1)
+            this.reloadReport();
+        }
+
+        private reportPreviousDay(): void {
+            this.reportFrom?.setDate(this.reportFrom?.getDate() - 1)
+            this.reportTo?.setDate(this.reportTo?.getDate() - 1)
+            this.reloadReport();
+        }
+
         private reloadReport(): void {
-            const start = new Date();
-            start.setHours(0, 0, 0, 0);
-            const end = new Date();
-            end.setHours(23, 59, 59, 999);
-            this.$timeTrackingService.reportAsync(this.userId, start.toISOString(), end.toISOString())
+            if (null === this.reportFrom) {
+                this.reportFrom = new Date();
+               this.reportFrom.setHours(0,0,0,0);
+            }
+            if (null == this.reportTo) {
+                this.reportTo = new Date();
+                this.reportTo.setHours(23,59,59,999);
+            }
+            this.$timeTrackingService.reportAsync(this.userId, this.reportFrom.toISOString(), this.reportTo.toISOString())
                 .then(res => this.report = res)
                 .catch(() => {
                     this.report = null;
