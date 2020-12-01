@@ -3,7 +3,7 @@
     <div class="modal-background"></div>
     <div class="modal-card">
       <div class="modal-card-head has-background-primary has-text-white">
-        <h2 class="modal-card-title has-text-white">Create Project</h2>
+        <h2 class="modal-card-title has-text-white">Create User</h2>
         <button class="delete" aria-label="close" @click="requestClose"></button>
       </div>
       <div class="modal-card-body">

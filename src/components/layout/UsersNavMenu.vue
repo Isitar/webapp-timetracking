@@ -6,7 +6,7 @@
     <div class="navbar-dropdown is-right">
       <a class="navbar-item" @click="createUserDialogOpen = true">Add User</a>
     </div>
-    <UserCreateDialog :open="createUserDialogOpen"/>
+    <UserCreateDialog :open="createUserDialogOpen" @save="createUserDialogOpen = false" @close="createUserDialogOpen = false"/>
   </div>
 </template>
 
