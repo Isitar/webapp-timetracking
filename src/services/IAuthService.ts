@@ -7,5 +7,5 @@ export default interface IAuthService {
 	logout(): Promise<null>;
 
 	resetPassword(email: string): Promise<null>;
-
+	changePassword(userId: string, newPassword: string): Promise<null>;
 }

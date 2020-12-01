@@ -22,4 +22,11 @@ export default class AxiosAuthService implements IAuthService {
 			.then((res) => res.data);
 	}
 
+	changePassword(userId: string, newPassword: string): Promise<null> {
+		return Vue.$axios.post(`auth/${userId}/password`, {
+			newPassword: newPassword,
+		})
+			.then(res => res.data);
+	}
+
 }
